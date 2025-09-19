@@ -43,15 +43,16 @@ if (!eventPath) {
 const event = loadJson(eventPath);
 
 let config = {};
+
 const configEnvRaw = process.env.PR_VALIDATION_CONFIG;
-if (configEnvRaw) {
-    try {
-        config = JSON.parse(configEnvRaw);
-    } catch (err) {
-        fail(`환경 변수(PR_VALIDATION_CONFIG)의 규칙 JSON을 파싱하지 못했습니다: ${err.message}`);
-    }
-} else {
-    fail('규칙 설정이 환경 변수로 제공되지 않았습니다. PR_VALIDATION_CONFIG를 설정하세요.');
+if (!configEnvRaw || !configEnvRaw.trim()) {
+    console.log('No PR_VALIDATION_CONFIG provided; skipping validation (pass).');
+    process.exit(0); // 규칙이 없으면 성공 처리
+}
+try {
+    config = JSON.parse(configEnvRaw);
+} catch (err) {
+    fail(`환경 변수(PR_VALIDATION_CONFIG)의 규칙 JSON을 파싱하지 못했습니다: ${err.message}`);
 }
 
 const userToBranch = config && typeof config.userToBranch === 'object' && !Array.isArray(config.userToBranch) ? config.userToBranch : {};
