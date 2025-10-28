@@ -1,5 +1,5 @@
 ## 미션 레포지토리
-[깃허브 바로가기](https://github.com/jangsh7/umc9th_week4)
+[깃허브 바로가기](https://github.com/jangsh7/umc9th_week4/tree/Feat/Chapter5)
 - 레포지토리: `Feat/Chapter5`
 
 ## 시니어 미션
